@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { _getQuestions, _saveQuestion, _saveQuestionAnswer } from "data/_DATA";
 
-// Async Thunks
-export const fetchPolls = createAsyncThunk("polls/fetch", _getQuestions);
+export const fetchPoll = createAsyncThunk("polls/fetch", _getQuestions);
 
 export const createPoll = createAsyncThunk(
   "polls/create",
@@ -12,8 +11,7 @@ export const createPoll = createAsyncThunk(
   }
 );
 
-// Slice
-export const pollsSlice = createSlice({
+export const pollSlice = createSlice({
   name: "polls",
   initialState: { value: {} },
   reducers: {
@@ -24,7 +22,7 @@ export const pollsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPolls.fulfilled, (state, { payload }) => {
+      .addCase(fetchPoll.fulfilled, (state, { payload }) => {
         state.value = payload;
       })
       .addCase(createPoll.fulfilled, (state, { payload }) => {
@@ -33,5 +31,5 @@ export const pollsSlice = createSlice({
   },
 });
 
-export const { recordPollAnswer } = pollsSlice.actions;
-export default pollsSlice.reducer;
+export const { recordPollAnswer } = pollSlice.actions;
+export default pollSlice.reducer;

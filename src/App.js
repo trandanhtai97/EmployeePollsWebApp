@@ -2,23 +2,23 @@ import "./App.css";
 import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import Login from "pages/Login/Login";
+import Login from "components/Login";
 import { useDispatch } from "react-redux";
-import { fetchPolls } from "stores/reducers/polls";
-import { fetchUsers } from "stores/reducers/users";
-import AppRoutes from "components/AppRoutes";
-import Dashboard from "pages/Dashboard/Dashboard";
-import NotFound from "pages/NotFound/NotFound";
-import PollDetail from "pages/PollDetail/PollDetail";
-import Leaderboard from "pages/Leaderboard/Leaderboard";
-import CreatePoll from "pages/CreatePoll/CreatePoll";
+import { fetchPoll } from "reduces/polls";
+import { fetchUser } from "reduces/users";
+import AppRoutes from "actions/AppRoutes";
+import Dashboard from "components/Dashboard";
+import NotFound from "components/NotFound";
+import PollDetail from "components/PollDetail";
+import Leaderboard from "components/Leaderboard";
+import CreatePoll from "components/NewPoll";
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchPolls());
-    dispatch(fetchUsers());
+    dispatch(fetchPoll());
+    dispatch(fetchUser());
   }, [dispatch]);
 
   return (

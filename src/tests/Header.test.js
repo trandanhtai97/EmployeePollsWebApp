@@ -1,11 +1,9 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router";
-import renderer from "react-test-renderer";
 import mockStore from "./MockStore";
 import createTestStore from "./TestStore";
-import Header from "components/Header";
-import { logoutThunk } from "stores/reducers/auth";
+import Header from "actions/Header";
 
 let store;
 beforeEach(() => {

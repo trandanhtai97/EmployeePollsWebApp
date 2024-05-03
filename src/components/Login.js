@@ -1,8 +1,7 @@
-import "./index.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Removed useLocation
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "stores/reducers/auth";
+import { login } from "reduces/authed";
 import { TextField, MenuItem, Select, FormControl } from "@mui/material";
 import { useLocation } from "react-router-dom";
 
@@ -60,7 +59,7 @@ const LoginForm = () => {
       onChange={handleSelectChange}
       displayEmpty
       sx={{
-        width: "60%",
+        width: "50%",
         margin: "10px 0px",
       }}
       size="small"
@@ -77,7 +76,7 @@ const LoginForm = () => {
       InputLabelProps={{ shrink: false }}
       size="small"
       sx={{
-        width: "60%",
+        width: "50%",
         margin: "10px 0px",
       }}
       value={passwordValue}
@@ -100,4 +99,19 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+const Login = () => {
+  return (
+    <div className="login-container">
+      <h1>Employee Polls</h1>
+      <img
+        src={require("assets/img/images.jpg")}
+        alt=""
+        className="login-img"
+      ></img>
+      <h2>Login</h2>
+      <LoginForm />
+    </div>
+  );
+};
+
+export default Login;

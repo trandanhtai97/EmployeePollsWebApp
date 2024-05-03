@@ -1,8 +1,7 @@
-import "./index.css";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { logout } from "stores/reducers/auth";
+import { logout } from "reduces/authed";
 import { useDispatch } from "react-redux";
 
 const Header = ({ index }) => {
@@ -29,9 +28,9 @@ const Header = ({ index }) => {
         navigate("/new-poll");
         break;
       case 4:
-        navigate("/"); // Always navigate to home page
+        navigate("/");
         dispatch(logout());
-        navigate(window.location.pathname); // Refresh the current route
+        navigate(window.location.pathname);
         break;
 
       default:

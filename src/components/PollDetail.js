@@ -1,13 +1,12 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import NotFound from "pages/NotFound/NotFound";
-import { recordPollAnswer } from "stores/reducers/polls";
-import { updateQuestionsAnswered } from "stores/reducers/users";
-import "./index.css";
-import Header from "components/Header";
+import NotFound from "components/NotFound";
+import { recordPollAnswer } from "reduces/polls";
+import { updateQuestionsAnswered } from "reduces/users";
+import Header from "actions/Header";
 import { useState, useEffect } from "react";
 
-const Polled = ({
+const PollQuestion = ({
   optionSelectedByUser,
   poll,
   percentageOptionOne,
@@ -50,7 +49,7 @@ const Polled = ({
   );
 };
 
-const AnswerPoll = ({ handlePollVote, poll }) => {
+const PollAnswer = ({ handlePollVote, poll }) => {
   return (
     <div className="answer-poll">
       <h2>Would You Rather</h2>
@@ -125,7 +124,7 @@ const PollDetail = () => {
   const percentageOptionTwo = calculatePercentage(optionTwoVotes, votesTotal);
 
   const content = answered ? (
-    <Polled
+    <PollQuestion
       optionSelectedByUser={optionSelectedByUser}
       poll={poll}
       percentageOptionOne={percentageOptionOne}
@@ -133,9 +132,9 @@ const PollDetail = () => {
       percentageOptionTwo={percentageOptionTwo}
       optionTwoVotes={optionTwoVotes}
       handleBack={handleBack}
-    ></Polled>
+    ></PollQuestion>
   ) : (
-    <AnswerPoll poll={poll} handlePollVote={handlePollVote}></AnswerPoll>
+    <PollAnswer poll={poll} handlePollVote={handlePollVote}></PollAnswer>
   );
 
   if (poll === undefined) {

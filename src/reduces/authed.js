@@ -4,16 +4,14 @@ const initialState = {
   value: "",
 };
 
-// Async Thunks
-export const logoutThunk = createAsyncThunk(
+export const logoutAsync = createAsyncThunk(
   "logout",
   async (_, { dispatch }) => {
     dispatch(logout());
-    window.location.href = "/"; // Navigate to home page
+    window.location.href = "/"; 
   }
 );
 
-// Slice
 export const authSlice = createSlice({
   name: "authUser",
   initialState,

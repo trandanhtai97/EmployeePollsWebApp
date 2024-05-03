@@ -1,19 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { _getUsers } from "data/_DATA";
 
-// Async Thunks
-export const fetchUsers = createAsyncThunk("users/fetch", _getUsers);
+export const fetchUser = createAsyncThunk("users/fetch", _getUsers);
 
-export const updateQuestionAsked = createAsyncThunk(
+export const updateQuestion = createAsyncThunk(
   "users/update",
   async (payload, { dispatch }) => {
-    dispatch(usersSlice.actions.updateQuestionsAsked(payload));
+    dispatch(userSlice.actions.updateQuestionsAsked(payload));
     return _getUsers();
   }
 );
 
 // Slice
-export const usersSlice = createSlice({
+export const userSlice = createSlice({
   name: "users",
   initialState: { value: {} },
   reducers: {
@@ -28,12 +27,12 @@ export const usersSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchUsers.fulfilled, (state, { payload }) => {
+    builder.addCase(fetchUser.fulfilled, (state, { payload }) => {
       state.value = payload;
     });
   },
 });
 
 export const { updateQuestionsAnswered, updateQuestionsAsked } =
-  usersSlice.actions;
-export default usersSlice.reducer;
+userSlice.actions;
+export default userSlice.reducer;
