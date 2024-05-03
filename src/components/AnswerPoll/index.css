@@ -1,0 +1,18 @@
+.answer-poll {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.answer-poll-group {
+  margin-top: 30px;
+}
+
+.answer-poll-option {
+  padding: 10px 10px;
+}
+
+.answer-poll-option-one {
+  margin-right: 50px;
+}

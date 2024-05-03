@@ -1,0 +1,22 @@
+.group-poll {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+.group-poll-center {
+  width: 800px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border: 2px solid rgb(214, 209, 209);
+  border-radius: 6px;
+}
+.group-poll-label {
+  border-bottom: 2px solid rgb(214, 209, 209);
+  text-align: center;
+  padding: 17px 0;
+  font-size: 25px;
+  font-weight: 600;
+}

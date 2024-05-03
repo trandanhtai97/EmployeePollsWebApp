@@ -1,0 +1,26 @@
+.leaderboard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.leaderboard-table {
+  width: 50%;
+}
+.leaderboard-head {
+  text-align: left;
+}
+
+/* .leaderboard-body {
+  border: 2px solid rgb(214, 209, 209);
+  border-radius: 6px;
+}  */
+
+.leaderboard-table,
+.leaderboard-item {
+  border: 2px solid rgb(214, 209, 209);
+  border-radius: 6px;
+  border-collapse: collapse;
+  padding: 10px;
+}
