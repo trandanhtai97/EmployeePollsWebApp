@@ -1,13 +1,79 @@
-import AnswerPoll from "components/AnswerPoll/AnswerPoll";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import NotFound from "pages/NotFound/NotFound";
 import { recordPollAnswer } from "stores/reducers/polls";
 import { updateQuestionsAnswered } from "stores/reducers/users";
 import "./index.css";
-import Header from "components/Header/Header";
-import AnsweredPoll from "components/AnsweredPoll/AnsweredPoll";
+import Header from "components/Header";
 import { useState, useEffect } from "react";
+
+const Polled = ({
+  optionSelectedByUser,
+  poll,
+  percentageOptionOne,
+  optionOneVotes,
+  percentageOptionTwo,
+  optionTwoVotes,
+  handleBack,
+}) => {
+  return (
+    <>
+      <div className="answered-poll">
+        <div>
+          <h3>{poll?.optionOne.text}</h3>
+          <div>
+            {optionOneVotes} votes for this option! {percentageOptionOne}% of
+            the votes!
+          </div>
+          <h4>
+            {optionSelectedByUser === "optionOne" &&
+              "You voted for this option!"}
+          </h4>
+        </div>
+
+        <div>
+          <h3>{poll?.optionTwo.text}</h3>
+          <div>
+            {optionTwoVotes} votes for this option! {percentageOptionTwo}% of
+            the votes!
+          </div>
+          <h4>
+            {optionSelectedByUser === "optionTwo" &&
+              "You voted for this option!"}
+          </h4>
+        </div>
+      </div>
+      <button onClick={handleBack} className="btn-back">
+        Go Back to Home
+      </button>
+    </>
+  );
+};
+
+const AnswerPoll = ({ handlePollVote, poll }) => {
+  return (
+    <div className="answer-poll">
+      <h2>Would You Rather</h2>
+      <div className="answer-poll-group">
+        <button
+          className="answer-poll-option answer-poll-option-one"
+          onClick={handlePollVote}
+          id="optionOne"
+        >
+          {poll?.optionOne.text}
+        </button>
+        <button
+          className="answer-poll-option"
+          onClick={handlePollVote}
+          id="optionTwo"
+        >
+          {poll?.optionTwo.text}
+        </button>
+      </div>
+    </div>
+  );
+};
+
 
 const PollDetail = () => {
   const { id } = useParams();
@@ -58,6 +124,20 @@ const PollDetail = () => {
   const percentageOptionOne = calculatePercentage(optionOneVotes, votesTotal);
   const percentageOptionTwo = calculatePercentage(optionTwoVotes, votesTotal);
 
+  const content = answered ? (
+    <Polled
+      optionSelectedByUser={optionSelectedByUser}
+      poll={poll}
+      percentageOptionOne={percentageOptionOne}
+      optionOneVotes={optionOneVotes}
+      percentageOptionTwo={percentageOptionTwo}
+      optionTwoVotes={optionTwoVotes}
+      handleBack={handleBack}
+    ></Polled>
+  ) : (
+    <AnswerPoll poll={poll} handlePollVote={handlePollVote}></AnswerPoll>
+  );
+
   if (poll === undefined) {
     return <NotFound />;
   }
@@ -69,19 +149,7 @@ const PollDetail = () => {
         <div>
           <h1>Poll by {poll?.author}</h1>
         </div>
-        {answered ? (
-          <AnsweredPoll
-            optionSelectedByUser={optionSelectedByUser}
-            poll={poll}
-            percentageOptionOne={percentageOptionOne}
-            optionOneVotes={optionOneVotes}
-            percentageOptionTwo={percentageOptionTwo}
-            optionTwoVotes={optionTwoVotes}
-            handleBack={handleBack}
-          ></AnsweredPoll>
-        ) : (
-          <AnswerPoll poll={poll} handlePollVote={handlePollVote}></AnswerPoll>
-        )}
+        {content}
       </div>
     </>
   );

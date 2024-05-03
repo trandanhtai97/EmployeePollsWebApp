@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router";
 import renderer from "react-test-renderer";
 import mockStore from "./MockStore";
 import createTestStore from "./TestStore";
-import Header from "components/Header/Header";
+import Header from "components/Header";
 import { logoutThunk } from "stores/reducers/auth";
 
 let store;

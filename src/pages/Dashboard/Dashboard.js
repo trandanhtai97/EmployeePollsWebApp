@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import Header from "components/Header/Header";
-import PollGroup from "components/PollGroup/PollGroup";
+import Header from "components/Header";
+import PollGroup from "components/PollGroup";
+import Tab from "./Tab";
 import "./index.css";
 
 const Dashboard = () => {
@@ -29,42 +30,28 @@ const Dashboard = () => {
       !poll.optionTwo.votes.includes(authUser)
   );
 
+  const content = isToggle ? (
+    <PollGroup
+      key="new"
+      label={"New Questions"}
+      questions={unansweredPolls}
+      data-testid="unansweredPolls"
+    ></PollGroup>
+  ) : (
+    <PollGroup
+      key="answered"
+      label={"Done"}
+      questions={answeredPolls}
+      data-testid="answeredPolls"
+    ></PollGroup>
+  );
+
   return (
     <>
       <Header index={1}></Header>
       <h1>Welcome {authUser}</h1>
-      <div className="nav-bar-left ">
-        <div
-          className={`nav-bar-item ${isToggle && "nav-bar-item-active"}`}
-          onClick={toggleChange}
-          data-testid="unansweredTab"
-        >
-          New Questions
-        </div>
-        <div
-          className={`nav-bar-item ${!isToggle && "nav-bar-item-active"}`}
-          onClick={toggleChange}
-          data-testid="answeredTab"
-        >
-          Done
-        </div>
-      </div>
-
-      {isToggle ? (
-        <PollGroup
-          key="new"
-          label={"New Questions"}
-          questions={unansweredPolls}
-          data-testid="unansweredPolls"
-        ></PollGroup>
-      ) : (
-        <PollGroup
-          key="answered"
-          label={"Done"}
-          questions={answeredPolls}
-          data-testid="answeredPolls"
-        ></PollGroup>
-      )}
+      <Tab toggleChange={toggleChange} isToggle={isToggle} />
+      {content}
     </>
   );
 };

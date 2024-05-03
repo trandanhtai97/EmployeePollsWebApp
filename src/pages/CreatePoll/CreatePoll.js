@@ -1,9 +1,11 @@
-import Header from "components/Header/Header";
+import Header from "components/Header";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createPoll } from "stores/reducers/polls";
 import { fetchUsers } from "stores/reducers/users";
+import FirstOption from "./firstOption";
+import SecondOption from "./sencondOption";
 
 const CreatePoll = () => {
   const navigate = useNavigate();
@@ -29,22 +31,8 @@ const CreatePoll = () => {
         <h1>Would You Rather</h1>
         <div>Create Your Own Poll</div>
         <form className="create-poll-form" onSubmit={handleSubmit}>
-          <div className="create-poll-item">
-            <label className="create-poll-label">First Option</label>
-            <input
-              className="create-poll-input"
-              type="text"
-              placeholder="Option One"
-            ></input>
-          </div>
-
-          <div className="create-poll-item">
-            <label className="create-poll-label">Second Option</label>
-            <input
-              className="create-poll-input"
-              placeholder="Option Two"
-            ></input>
-          </div>
+          <FirstOption />
+          <SecondOption />
 
           <button type="submit" className="create-poll-btn">
             Submit

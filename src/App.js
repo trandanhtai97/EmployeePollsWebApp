@@ -6,7 +6,7 @@ import Login from "pages/Login/Login";
 import { useDispatch } from "react-redux";
 import { fetchPolls } from "stores/reducers/polls";
 import { fetchUsers } from "stores/reducers/users";
-import AppRoutes from "components/AppRoutes/AppRoutes";
+import AppRoutes from "components/AppRoutes";
 import Dashboard from "pages/Dashboard/Dashboard";
 import NotFound from "pages/NotFound/NotFound";
 import PollDetail from "pages/PollDetail/PollDetail";

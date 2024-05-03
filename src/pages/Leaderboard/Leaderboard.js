@@ -1,6 +1,8 @@
-import Header from "components/Header/Header";
+import Header from "components/Header";
 import "./index.css";
 import { useSelector } from "react-redux";
+import LeaderboardChild from "./LeaderboardChild";
+import LeaderboardHeader from "./LeaderboardHeader";
 
 const Leaderboard = () => {
   const users = useSelector((state) => state.users.value);
@@ -16,23 +18,9 @@ const Leaderboard = () => {
       <Header index={2}></Header>
       <div className="leaderboard">
         <table className="leaderboard-table">
-          <thead>
-            <tr className="leaderboard-head">
-              <th className="leaderboard-item">Users</th>
-              <th className="leaderboard-item">Answered</th>
-              <th className="leaderboard-item">Created</th>
-            </tr>
-          </thead>
+          <LeaderboardHeader />
           <tbody>
-            {userList.map(({ id, name, questions, answers }) => (
-              <tr className="leaderboard-body" key={id}>
-                <td className="leaderboard-item">{name}</td>
-                <td className="leaderboard-item">
-                  {Object.keys(answers).length}
-                </td>
-                <td className="leaderboard-item">{questions.length}</td>
-              </tr>
-            ))}
+            <LeaderboardChild userList={userList} />
           </tbody>
         </table>
       </div>
