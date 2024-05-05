@@ -3,7 +3,7 @@ import { _getQuestions, _saveQuestion, _saveQuestionAnswer } from "data/_DATA";
 
 export const fetchPoll = createAsyncThunk("polls/fetch", _getQuestions);
 
-export const createPoll = createAsyncThunk(
+export const create = createAsyncThunk(
   "polls/create",
   async (formValues) => {
     await _saveQuestion(formValues);
@@ -15,7 +15,7 @@ export const pollSlice = createSlice({
   name: "polls",
   initialState: { value: {} },
   reducers: {
-    recordPollAnswer: (state, { payload: { authedUser, qid, answer } }) => {
+    pollAns: (state, { payload: { authedUser, qid, answer } }) => {
       state.value[qid][answer].votes.push(authedUser);
       _saveQuestionAnswer({ authedUser, qid, answer });
     },
@@ -25,11 +25,11 @@ export const pollSlice = createSlice({
       .addCase(fetchPoll.fulfilled, (state, { payload }) => {
         state.value = payload;
       })
-      .addCase(createPoll.fulfilled, (state, { payload }) => {
+      .addCase(create.fulfilled, (state, { payload }) => {
         state.value = payload;
       });
   },
 });
 
-export const { recordPollAnswer } = pollSlice.actions;
+export const { pollAns } = pollSlice.actions;
 export default pollSlice.reducer;

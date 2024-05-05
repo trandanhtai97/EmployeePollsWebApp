@@ -14,7 +14,7 @@ const Header = ({ index }) => {
     setActiveTab(index);
   }, [index]);
 
-  const handleTabClick = (event, tabIndex) => {
+  const clickTab = (event, tabIndex) => {
     event.preventDefault();
     setActiveTab(tabIndex);
     switch (tabIndex) {
@@ -44,7 +44,7 @@ const Header = ({ index }) => {
         className={`nav-bar-item ${
           activeTab === tabIndex ? "nav-bar-item-active" : ""
         }`}
-        onClick={(event) => handleTabClick(event, tabIndex)}
+        onClick={(event) => clickTab(event, tabIndex)}
         data-testid={testId}
         href={url}
       >

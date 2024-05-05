@@ -19,7 +19,7 @@ const Poll = ({ id, user, date }) => {
   );
 };
 
-const PollGroup = ({ label, questions }) => {
+const PollClass = ({ label, questions }) => {
   const listQuestion = questions.map((question) => {
     const questionDate = new Date(question?.timestamp);
     return (
@@ -49,21 +49,21 @@ const PollGroup = ({ label, questions }) => {
   );
 };
 const Tab = (props) => {
-  const { toggleChange, isToggle } = props;
+  const { change, isToggle } = props;
 
   return (
     <>
       <div className="nav-bar-left ">
         <div
           className={`nav-bar-item ${isToggle && "nav-bar-item-active"}`}
-          onClick={toggleChange}
+          onClick={change}
           data-testid="unansweredTab"
         >
           New Questions
         </div>
         <div
           className={`nav-bar-item ${!isToggle && "nav-bar-item-active"}`}
-          onClick={toggleChange}
+          onClick={change}
           data-testid="answeredTab"
         >
           Done
@@ -76,10 +76,10 @@ const Tab = (props) => {
 const Dashboard = () => {
   const authUser = useSelector((state) => state.authUser.value);
   const polls = useSelector((state) => state.polls.value);
-  const [isToggle, setIsToggle] = useState(true);
+  const [isToggle, IsToggle] = useState(true);
 
-  const toggleChange = () => {
-    setIsToggle(!isToggle);
+  const toggle = () => {
+    IsToggle(!isToggle);
   };
 
   const pollsArray = Object.keys(polls)
@@ -99,26 +99,26 @@ const Dashboard = () => {
   );
 
   const content = isToggle ? (
-    <PollGroup
+    <PollClass
       key="new"
       label={"New Questions"}
       questions={PollNotAnswered}
       data-testid="PollsNotAnswered"
-    ></PollGroup>
+    ></PollClass>
   ) : (
-    <PollGroup
+    <PollClass
       key="answered"
       label={"Done"}
       questions={pollAnswered}
       data-testid="pollAnswered"
-    ></PollGroup>
+    ></PollClass>
   );
 
   return (
     <>
       <Header index={1}></Header>
       <h1>Welcome {authUser}</h1>
-      <Tab toggleChange={toggleChange} isToggle={isToggle} />
+      <Tab change={toggle} isToggle={isToggle} />
       {content}
     </>
   );

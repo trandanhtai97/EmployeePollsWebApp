@@ -3,7 +3,7 @@ import { authSlice } from "reduces/authed";
 import { pollSlice } from "reduces/polls";
 import { userSlice } from "reduces/users";
 
-export default function createTestStore(preloadedState = {}) {
+export default function testStore(preloadedState = {}) {
   const createStore = configureStore({
     reducer: {
       authUser: authSlice.reducer,

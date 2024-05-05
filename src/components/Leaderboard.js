@@ -22,7 +22,7 @@ const LeaderboardChild = (props) => {
         <tr className="leaderboard-body" key={id}>
           <td className="leaderboard-item">{name}</td>
           <td className="leaderboard-item">{Object.keys(answers).length}</td>
-          <td className="leaderboard-item">{questions.length}</td>
+          <td className="leaderboard-item">{Object.keys(questions).length}</td>
         </tr>
       ))}
     </>

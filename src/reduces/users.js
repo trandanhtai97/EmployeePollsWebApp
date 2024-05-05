@@ -11,18 +11,17 @@ export const updateQuestion = createAsyncThunk(
   }
 );
 
-// Slice
 export const userSlice = createSlice({
   name: "users",
   initialState: { value: {} },
   reducers: {
-    updateQuestionsAnswered: (
+    questionAns: (
       state,
       { payload: { authedUser, qid, answer } }
     ) => {
       state.value[authedUser].answers[qid] = answer;
     },
-    updateQuestionsAsked: (state, { payload: { author, id } }) => {
+    questionAsk: (state, { payload: { author, id } }) => {
       state.value[author].questions.push(id);
     },
   },
@@ -33,6 +32,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { updateQuestionsAnswered, updateQuestionsAsked } =
+export const { questionAns, questionAsk } =
 userSlice.actions;
 export default userSlice.reducer;

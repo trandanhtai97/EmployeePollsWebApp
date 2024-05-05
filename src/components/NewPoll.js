@@ -1,7 +1,7 @@
 import Header from "actions/Header";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createPoll } from "reduces/polls";
+import { create } from "reduces/polls";
 import { fetchUser } from "reduces/users";
 
 const FirstOption = () => {
@@ -35,10 +35,10 @@ const NewPoll = () => {
   const dispatch = useDispatch();
   const authUser = useSelector((state) => state.authUser.value);
 
-  const handleSubmit = (event) => {
+  const submit = (event) => {
     event.preventDefault();
     dispatch(
-      createPoll({
+      create({
         optionOne: event.target[0].value,
         optionTwo: event.target[1].value,
         author: authUser,
@@ -52,8 +52,8 @@ const NewPoll = () => {
       <Header index={3}></Header>
       <div className="create-poll">
         <h1>Would You Rather</h1>
-        <div>Create Your Own Poll</div>
-        <form className="create-poll-form" onSubmit={handleSubmit}>
+        <div>Create Your Poll</div>
+        <form className="create-poll-form" onSubmit={submit}>
           <FirstOption />
           <SecondOption />
 

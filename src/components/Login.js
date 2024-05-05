@@ -20,16 +20,16 @@ const LoginForm = () => {
     value: users[user].id,
   }));
 
-  const handleSelectChange = (event) => {
+  const select = (event) => {
     setSelectValue(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
+  const password = (event) => {
     setError(false);
     setPasswordValue(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const submit = () => {
     if (
       users &&
       users[selectValue] &&
@@ -56,7 +56,7 @@ const LoginForm = () => {
   const accSelectComponent = (
     <Select
       value={selectValue}
-      onChange={handleSelectChange}
+      onChange={select}
       displayEmpty
       sx={{
         width: "50%",
@@ -80,7 +80,7 @@ const LoginForm = () => {
         margin: "10px 0px",
       }}
       value={passwordValue}
-      onChange={handlePasswordChange}
+      onChange={password}
       error={error}
       helperText={error && "Wrong password"}
     />
@@ -92,7 +92,7 @@ const LoginForm = () => {
       {accSelectComponent}
       <h4 className="login-label">Password</h4>
       {passwordComponent}
-      <button className="login-btn" type="submit" onClick={handleSubmit}>
+      <button className="login-btn" type="submit" onClick={submit}>
         Submit
       </button>
     </FormControl>

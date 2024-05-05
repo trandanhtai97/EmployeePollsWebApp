@@ -1,19 +1,19 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import NotFound from "components/NotFound";
-import { recordPollAnswer } from "reduces/polls";
-import { updateQuestionsAnswered } from "reduces/users";
+import { pollAns } from "reduces/polls";
 import Header from "actions/Header";
 import { useState, useEffect } from "react";
+import { questionAns } from "reduces/users";
 
 const PollQuestion = ({
-  optionSelectedByUser,
+  selectedByUser,
   poll,
-  percentageOptionOne,
+  percentOptionOne,
   optionOneVotes,
-  percentageOptionTwo,
+  percentOptionTwo,
   optionTwoVotes,
-  handleBack,
+  back,
 }) => {
   return (
     <>
@@ -21,49 +21,49 @@ const PollQuestion = ({
         <div>
           <h3>{poll?.optionOne.text}</h3>
           <div>
-            {optionOneVotes} votes for this option! {percentageOptionOne}% of
+            {optionOneVotes} votes for this option! {percentOptionOne}% of
             the votes!
           </div>
           <h4>
-            {optionSelectedByUser === "optionOne" &&
-              "You voted for this option!"}
+            {selectedByUser === "optionOne" &&
+              "You voted this option!"}
           </h4>
         </div>
 
         <div>
           <h3>{poll?.optionTwo.text}</h3>
           <div>
-            {optionTwoVotes} votes for this option! {percentageOptionTwo}% of
+            {optionTwoVotes} votes for this option! {percentOptionTwo}% of
             the votes!
           </div>
           <h4>
-            {optionSelectedByUser === "optionTwo" &&
-              "You voted for this option!"}
+            {selectedByUser === "optionTwo" &&
+              "You voted this option!"}
           </h4>
         </div>
       </div>
-      <button onClick={handleBack} className="btn-back">
+      <button onClick={back} className="btn-back">
         Go Back to Home
       </button>
     </>
   );
 };
 
-const PollAnswer = ({ handlePollVote, poll }) => {
+const PollAnswer = ({ pollVote, poll }) => {
   return (
     <div className="answer-poll">
       <h2>Would You Rather</h2>
       <div className="answer-poll-group">
         <button
           className="answer-poll-option answer-poll-option-one"
-          onClick={handlePollVote}
+          onClick={pollVote}
           id="optionOne"
         >
           {poll?.optionOne.text}
         </button>
         <button
           className="answer-poll-option"
-          onClick={handlePollVote}
+          onClick={pollVote}
           id="optionTwo"
         >
           {poll?.optionTwo.text}
@@ -88,53 +88,53 @@ const PollDetail = () => {
   const votesTotal = optionOneVotes + optionTwoVotes;
 
   const user = useSelector((state) => state.users.value);
-  const optionSelectedByUser = user[authUser].answers[id];
+  const selectByUser = user[authUser].answers[id];
 
   const authedUserAnswers = user[authUser].answers;
 
   useEffect(() => {
-    const loggedInAnswer = Object.keys(authedUserAnswers)
+    const loggedIn = Object.keys(authedUserAnswers)
       .filter((answer) => {
         return answer === id;
       })
       .map((answer) => {
         return authedUserAnswers[answer];
       });
-    if (loggedInAnswer.length > 0) {
+    if (loggedIn.length > 0) {
       setAnswered(true);
     }
   }, [authUser, authedUserAnswers, id]);
 
-  const handlePollVote = (event) => {
+  const pollVote = (event) => {
     const answer = event.currentTarget.id;
     const payload = { authedUser: authUser, qid: id, answer };
-    dispatch(recordPollAnswer(payload));
-    dispatch(updateQuestionsAnswered(payload));
+    dispatch(pollAns(payload));
+    dispatch(questionAns(payload));
   };
 
-  const handleBack = () => {
+  const backHome = () => {
     navigate("/");
   };
 
-  const calculatePercentage = (votes, total) => {
+  const percent = (votes, total) => {
     return Math.floor((votes / total) * 100);
   };
 
-  const percentageOptionOne = calculatePercentage(optionOneVotes, votesTotal);
-  const percentageOptionTwo = calculatePercentage(optionTwoVotes, votesTotal);
+  const percentOptionOne = percent(optionOneVotes, votesTotal);
+  const percentOptionTwo = percent(optionTwoVotes, votesTotal);
 
   const content = answered ? (
     <PollQuestion
-      optionSelectedByUser={optionSelectedByUser}
+      selectedByUser={selectByUser}
       poll={poll}
-      percentageOptionOne={percentageOptionOne}
+      percentOptionOne={percentOptionOne}
       optionOneVotes={optionOneVotes}
-      percentageOptionTwo={percentageOptionTwo}
+      percentOptionTwo={percentOptionTwo}
       optionTwoVotes={optionTwoVotes}
-      handleBack={handleBack}
+      back={backHome}
     ></PollQuestion>
   ) : (
-    <PollAnswer poll={poll} handlePollVote={handlePollVote}></PollAnswer>
+    <PollAnswer poll={poll} pollVote={pollVote}></PollAnswer>
   );
 
   if (poll === undefined) {

@@ -1,7 +1,7 @@
 let users = {
   sarahedo: {
     id: "sarahedo",
-    password: "123",
+    password: "pass123",
     name: "Sarah Edo",
     avatarURL: null,
     answers: {
