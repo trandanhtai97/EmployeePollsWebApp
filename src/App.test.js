@@ -3,12 +3,12 @@ import App from "App";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import mockStore from "tests/MockStore";
-import createTestStore from "tests/TestStore";
+import testStore from "tests/TestStore";
 
 let store;
 
 beforeEach(() => {
-  store = createTestStore(mockStore);
+  store = testStore(mockStore);
 });
 
 describe("App", () => {

@@ -3,8 +3,8 @@ import { _saveQuestion, _saveQuestionAnswer } from "../data/_DATA";
 describe("When I attempt to save a new question", () => {
   it("should return expected result given proper data", async () => {
     const poll = {
-      optionOneText: "test option one",
-      optionTwoText: "test option two",
+      optionOne: "test option one",
+      optionTwo: "test option two",
       author: "sarahedo",
     };
 
@@ -18,8 +18,8 @@ describe("When I attempt to save a new question", () => {
 
   it("should return error given improper data", async () => {
     const malformedPoll = {
-      optionOneText: "test option one",
-      optionTwoText: "test option two",
+      optionOne: "test option one",
+      optionTwo: "test option two",
     };
 
     await expect(_saveQuestion(malformedPoll)).rejects.toEqual(
